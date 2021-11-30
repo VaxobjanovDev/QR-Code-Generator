@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Simple QR Code generator any files, text and other. Practise with React, API, Axios and some components.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
