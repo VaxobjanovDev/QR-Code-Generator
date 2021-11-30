@@ -1,13 +1,18 @@
-import React from 'react'
-import SetBackground from './SetBackground'
+import React, { useEffect } from "react";
+import SetBackground from "./SetBackground";
 
-const QrCode = ({qrCode, setSize,setBackground}) => {
-    return (
-        <div className='codeImg'>
-            <img src={qrCode} alt='qrCode image'/>
-            <SetBackground setSize={setSize} setBackground={setBackground}/>
-        </div>
-    )
-}
+const QrCode = ({ qrCode, setBackground }) => {
+  const responseUrl = qrCode.request.responseURL;
+  return (
+    <>
+      <div>
+        <img className="codeImg" src={responseUrl} alt="qrCode image" />
+      </div>
+      <div className="download">
+        <SetBackground qrCode={qrCode} setBackground={setBackground} />
+      </div>
+    </>
+  );
+};
 
-export default QrCode
+export default QrCode;

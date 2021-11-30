@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Input from "./Input";
 import QrCode from "./QrCode";
-import SetBackground from "./SetBackground";
+import axios from "axios";
+import "./Main.css";
 
 const Main = () => {
-  const [input, setInput] = useState("");
-	const [size,setSize] = useState("")
+  const [input, setInput] = useState("examlple");
+  const [size, setSize] = useState("");
   const [word, setWord] = useState("");
   const [background, setBackground] = useState("");
   const [qrCode, setQrCode] = useState("");
 
-  // const fetchQrCode = async() => {
-  //   await setQrCode(`http://api.qrserver.com/v1/create-qr-code/?data=${word}&size=${size}x${size}&bgcolor=${background}`);
-  // };
+  const fetchQrCode = async () => {
+    try {
+      const response = await axios.get(
+        `http://api.qrserver.com/v1/create-qr-code/?data=${word}&size=${size}x${size}&bgcolor=${background}`
+      );
+      setQrCode(response);
+    } catch (error) {
+      console.log("error");
+    }
+  };
 
   useEffect(() => {
-   setQrCode(`http://api.qrserver.com/v1/create-qr-code/?data=${word}&size=${""}x${""}&bgcolor=${background}`);
-  }, [input, background]);
+    fetchQrCode();
+  }, [word, background]);
 
   function handleGenerate() {
     setWord(input);
@@ -28,9 +36,13 @@ const Main = () => {
         <div className="text-header">
           <h1>Enter your website name or something and get your QR Code!</h1>
         </div>
-        <Input setInput={setInput} />
-        {qrCode ? "": <QrCode qrCode={qrCode} setSize={setSize} setBackground={setBackground} />}
-        <button onClick={handleGenerate}>Generate</button>
+        <div className="some">
+          <Input setSize={setSize} setInput={setInput} />
+          <button className="btn" onClick={handleGenerate}>
+            Generate
+          </button>
+        </div>
+        {qrCode ? <QrCode qrCode={qrCode} setBackground={setBackground} /> : ""}
       </div>
     </div>
   );

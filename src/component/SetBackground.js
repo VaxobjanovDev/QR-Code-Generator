@@ -1,15 +1,19 @@
-import React from 'react'
+import React from "react";
 
-const SetBackground = ({setSize,setBackground, qrCode}) => {
-    return (
-        <form>
-            <input onChange={(e)=>setBackground(e.target.value)} type='color'/>
-            <input onChange={(e)=>setSize(e.target.value)} type='number' />
-            <a href={qrCode} download='qrCode download'>
-                <button>Download</button>
-            </a>
-        </form>
-    )
-}
+const SetBackground = ({ setBackground, qrCode }) => {
+  const responseUrl = qrCode.request.responseURL;
+  return (
+    <>
+      <input
+        className="colorPicker"
+        onChange={(e) => setBackground(e.target.value.substring(1))}
+        type="color"
+      />
+      <a href={responseUrl} download="se">
+        <button className="btn">Download</button>
+      </a>
+    </>
+  );
+};
 
-export default SetBackground
+export default SetBackground;
